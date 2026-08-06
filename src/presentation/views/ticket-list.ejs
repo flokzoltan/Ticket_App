@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Munkalapok Listája</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f8fafc; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
+    th { background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <h1>Munkalapok</h1>
+  <a href="/tickets/new">+ Új Ticket</a>
+  <br><br>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ügyfél</th>
+        <th>Eszköz</th>
+        <th>Státusz</th>
+        <th>Fizetve</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tickets.forEach(ticket => { %>
+        <tr>
+          <td><%= ticket.id.slice(0, 8) %></td>
+          <td><%= ticket.props.clientName %></td>
+          <td><%= ticket.props.deviceName %></td>
+          <td><%= ticket.props.status %></td>
+          <td><%= ticket.props.isPaid ? 'Igen' : 'Nem' %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

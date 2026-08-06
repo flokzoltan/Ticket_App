@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Új Munkalap Létrehozása</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f4f6f9; }
+    .form-box { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+    .field { margin-bottom: 12px; }
+    label { display: block; font-weight: bold; margin-bottom: 4px; }
+    input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Új Szerviz Munkalap</h2>
+    <form action="/tickets" method="POST">
+      <div class="field"><label>Ügyfél neve</label><input type="text" name="clientName" required /></div>
+      <div class="field"><label>Telefonszám</label><input type="text" name="clientPhone" required /></div>
+      <div class="field"><label>Eszköz típusa</label><input type="text" name="deviceName" required /></div>
+      <div class="field"><label>Hiba leírása</label><textarea name="issueDescription" required></textarea></div>
+      <button type="submit">Munkalap Mentése</button>
+    </form>
+  </div>
+</body>
+</html>
