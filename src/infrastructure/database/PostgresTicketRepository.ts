@@ -56,15 +56,61 @@ export class PostgresTicketRepository implements ITicketRepository {
   }
 
   async findById(id: string): Promise<Ticket | null> {
-    const raw = await this.prisma.ticket.findUnique({ where: { id } });
-    if (!raw) return null;
-    return new Ticket({ ...raw, status: raw.status as TicketStatus }, raw.id);
-  }
+  const raw = await this.prisma.ticket.findUnique({ where: { id } });
+  if (!raw) return null;
+  return new Ticket(
+    {
+      clientName: raw.clientName,
+      clientPhone: raw.clientPhone,
+      clientEmail: raw.clientEmail,
+      deviceName: raw.deviceName,
+      serialNumber: raw.serialNumber ?? undefined,
+      issueDescription: raw.issueDescription,
+      damages: raw.damages ?? undefined,
+      accessories: raw.accessories ?? undefined,
+      latitude: raw.latitude,
+      longitude: raw.longitude,
+      signatureBase64: raw.signatureBase64,
+      photoUrls: raw.photoUrls,
+      laborCost: raw.laborCost,
+      partsCost: raw.partsCost,
+      status: raw.status as TicketStatus,
+      isPaid: raw.isPaid,
+      internalNotes: raw.internalNotes ?? undefined,
+      createdAt: raw.createdAt,
+    },
+    raw.id
+  );
+}
 
-  async findAll(): Promise<Ticket[]> {
-    const records = await this.prisma.ticket.findMany({ orderBy: { createdAt: 'desc' } });
-    return records.map((raw) => new Ticket({ ...raw, status: raw.status as TicketStatus }, raw.id));
-  }
+ async findAll(): Promise<Ticket[]> {
+  const records = await this.prisma.ticket.findMany({ orderBy: { createdAt: 'desc' } });
+  return records.map((raw) =>
+    new Ticket(
+      {
+        clientName: raw.clientName,
+        clientPhone: raw.clientPhone,
+        clientEmail: raw.clientEmail,
+        deviceName: raw.deviceName,
+        serialNumber: raw.serialNumber ?? undefined,
+        issueDescription: raw.issueDescription,
+        damages: raw.damages ?? undefined,
+        accessories: raw.accessories ?? undefined,
+        latitude: raw.latitude,
+        longitude: raw.longitude,
+        signatureBase64: raw.signatureBase64,
+        photoUrls: raw.photoUrls,
+        laborCost: raw.laborCost,
+        partsCost: raw.partsCost,
+        status: raw.status as TicketStatus,
+        isPaid: raw.isPaid,
+        internalNotes: raw.internalNotes ?? undefined,
+        createdAt: raw.createdAt,
+      },
+      raw.id
+    )
+  );
+}
 
   async getSystemStatistics(): Promise<any> {
     const count = await this.prisma.ticket.count();
